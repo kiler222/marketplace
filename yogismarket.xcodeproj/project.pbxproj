@@ -3,27 +3,39 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D113F19055B37807D8AA6AC6 /* Pods_yogismarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E411721882A8FC1F104E3E /* Pods_yogismarket.framework */; };
 		E5AA9EF423E03DCB00531322 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF323E03DCB00531322 /* AppDelegate.swift */; };
 		E5AA9EF623E03DCB00531322 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF523E03DCB00531322 /* SceneDelegate.swift */; };
-		E5AA9EF823E03DCB00531322 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF723E03DCB00531322 /* ViewController.swift */; };
+		E5AA9EF823E03DCB00531322 /* ViewXXController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF723E03DCB00531322 /* ViewXXController.swift */; };
 		E5AA9EFB23E03DCB00531322 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5AA9EF923E03DCB00531322 /* Main.storyboard */; };
 		E5AA9EFD23E03DCF00531322 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5AA9EFC23E03DCF00531322 /* Assets.xcassets */; };
 		E5AA9F0023E03DCF00531322 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5AA9EFE23E03DCF00531322 /* LaunchScreen.storyboard */; };
+		E5AA9F0823E03E7900531322 /* UICustomCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9F0723E03E7900531322 /* UICustomCollectionViewLayout.swift */; };
+		E5AA9F0A23E0402F00531322 /* UICustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9F0923E0402F00531322 /* UICustomCollectionViewCell.swift */; };
+		E5AA9F0C23E0853100531322 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9F0B23E0853100531322 /* MainViewController.swift */; };
+		E5AA9F1423E1AEC300531322 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9F1323E1AEC300531322 /* CategoryCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18E411721882A8FC1F104E3E /* Pods_yogismarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yogismarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		361ADF5012001BED132357D6 /* Pods-yogismarket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yogismarket.debug.xcconfig"; path = "Target Support Files/Pods-yogismarket/Pods-yogismarket.debug.xcconfig"; sourceTree = "<group>"; };
+		D58A30E09DCB2CB90C77389D /* Pods-yogismarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yogismarket.release.xcconfig"; path = "Target Support Files/Pods-yogismarket/Pods-yogismarket.release.xcconfig"; sourceTree = "<group>"; };
 		E5AA9EF023E03DCB00531322 /* yogismarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yogismarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5AA9EF323E03DCB00531322 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5AA9EF523E03DCB00531322 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E5AA9EF723E03DCB00531322 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E5AA9EF723E03DCB00531322 /* ViewXXController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewXXController.swift; sourceTree = "<group>"; };
 		E5AA9EFA23E03DCB00531322 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E5AA9EFC23E03DCF00531322 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5AA9EFF23E03DCF00531322 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5AA9F0123E03DCF00531322 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5AA9F0723E03E7900531322 /* UICustomCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomCollectionViewLayout.swift; sourceTree = "<group>"; };
+		E5AA9F0923E0402F00531322 /* UICustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		E5AA9F0B23E0853100531322 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		E5AA9F1323E1AEC300531322 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D113F19055B37807D8AA6AC6 /* Pods_yogismarket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		48281C629AB1EDE5197A40AB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				361ADF5012001BED132357D6 /* Pods-yogismarket.debug.xcconfig */,
+				D58A30E09DCB2CB90C77389D /* Pods-yogismarket.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E30B6CBF02CA321547772232 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18E411721882A8FC1F104E3E /* Pods_yogismarket.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E5AA9EE723E03DCB00531322 = {
 			isa = PBXGroup;
 			children = (
 				E5AA9EF223E03DCB00531322 /* yogismarket */,
 				E5AA9EF123E03DCB00531322 /* Products */,
+				48281C629AB1EDE5197A40AB /* Pods */,
+				E30B6CBF02CA321547772232 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,12 +89,16 @@
 			isa = PBXGroup;
 			children = (
 				E5AA9EF323E03DCB00531322 /* AppDelegate.swift */,
+				E5AA9F0923E0402F00531322 /* UICustomCollectionViewCell.swift */,
+				E5AA9F1323E1AEC300531322 /* CategoryCollectionViewCell.swift */,
 				E5AA9EF523E03DCB00531322 /* SceneDelegate.swift */,
-				E5AA9EF723E03DCB00531322 /* ViewController.swift */,
+				E5AA9EF723E03DCB00531322 /* ViewXXController.swift */,
+				E5AA9F0B23E0853100531322 /* MainViewController.swift */,
 				E5AA9EF923E03DCB00531322 /* Main.storyboard */,
 				E5AA9EFC23E03DCF00531322 /* Assets.xcassets */,
 				E5AA9EFE23E03DCF00531322 /* LaunchScreen.storyboard */,
 				E5AA9F0123E03DCF00531322 /* Info.plist */,
+				E5AA9F0723E03E7900531322 /* UICustomCollectionViewLayout.swift */,
 			);
 			path = yogismarket;
 			sourceTree = "<group>";
@@ -74,9 +110,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E5AA9F0423E03DCF00531322 /* Build configuration list for PBXNativeTarget "yogismarket" */;
 			buildPhases = (
+				2F79D390DE352605535ADB79 /* [CP] Check Pods Manifest.lock */,
 				E5AA9EEC23E03DCB00531322 /* Sources */,
 				E5AA9EED23E03DCB00531322 /* Frameworks */,
 				E5AA9EEE23E03DCB00531322 /* Resources */,
+				44228F1751ACE3CF9121A415 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,14 +171,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2F79D390DE352605535ADB79 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-yogismarket-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		44228F1751ACE3CF9121A415 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-yogismarket/Pods-yogismarket-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-yogismarket/Pods-yogismarket-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-yogismarket/Pods-yogismarket-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E5AA9EEC23E03DCB00531322 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5AA9EF823E03DCB00531322 /* ViewController.swift in Sources */,
+				E5AA9EF823E03DCB00531322 /* ViewXXController.swift in Sources */,
+				E5AA9F0A23E0402F00531322 /* UICustomCollectionViewCell.swift in Sources */,
 				E5AA9EF423E03DCB00531322 /* AppDelegate.swift in Sources */,
+				E5AA9F0C23E0853100531322 /* MainViewController.swift in Sources */,
 				E5AA9EF623E03DCB00531322 /* SceneDelegate.swift in Sources */,
+				E5AA9F1423E1AEC300531322 /* CategoryCollectionViewCell.swift in Sources */,
+				E5AA9F0823E03E7900531322 /* UICustomCollectionViewLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +366,7 @@
 		};
 		E5AA9F0523E03DCF00531322 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 361ADF5012001BED132357D6 /* Pods-yogismarket.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +385,7 @@
 		};
 		E5AA9F0623E03DCF00531322 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D58A30E09DCB2CB90C77389D /* Pods-yogismarket.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
