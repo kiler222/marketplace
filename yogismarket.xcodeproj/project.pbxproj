@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D113F19055B37807D8AA6AC6 /* Pods_yogismarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E411721882A8FC1F104E3E /* Pods_yogismarket.framework */; };
+		E55EBC5E23EC15F000699BCE /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC5D23EC15F000699BCE /* ItemDetailsViewController.swift */; };
+		E55EBC6023EC40AF00699BCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E55EBC5F23EC40AF00699BCE /* GoogleService-Info.plist */; };
+		E55EBC6223EC535E00699BCE /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC6123EC535E00699BCE /* FirebaseManager.swift */; };
+		E55EBC6423ECB6E300699BCE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC6323ECB6E200699BCE /* Models.swift */; };
 		E5AA9EF423E03DCB00531322 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF323E03DCB00531322 /* AppDelegate.swift */; };
 		E5AA9EF623E03DCB00531322 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF523E03DCB00531322 /* SceneDelegate.swift */; };
 		E5AA9EF823E03DCB00531322 /* ViewXXController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF723E03DCB00531322 /* ViewXXController.swift */; };
@@ -24,6 +28,10 @@
 		18E411721882A8FC1F104E3E /* Pods_yogismarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yogismarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		361ADF5012001BED132357D6 /* Pods-yogismarket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yogismarket.debug.xcconfig"; path = "Target Support Files/Pods-yogismarket/Pods-yogismarket.debug.xcconfig"; sourceTree = "<group>"; };
 		D58A30E09DCB2CB90C77389D /* Pods-yogismarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yogismarket.release.xcconfig"; path = "Target Support Files/Pods-yogismarket/Pods-yogismarket.release.xcconfig"; sourceTree = "<group>"; };
+		E55EBC5D23EC15F000699BCE /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
+		E55EBC5F23EC40AF00699BCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E55EBC6123EC535E00699BCE /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		E55EBC6323ECB6E200699BCE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E5AA9EF023E03DCB00531322 /* yogismarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yogismarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5AA9EF323E03DCB00531322 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5AA9EF523E03DCB00531322 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +96,7 @@
 		E5AA9EF223E03DCB00531322 /* yogismarket */ = {
 			isa = PBXGroup;
 			children = (
+				E55EBC5F23EC40AF00699BCE /* GoogleService-Info.plist */,
 				E5AA9EF323E03DCB00531322 /* AppDelegate.swift */,
 				E5AA9F0923E0402F00531322 /* UICustomCollectionViewCell.swift */,
 				E5AA9F1323E1AEC300531322 /* CategoryCollectionViewCell.swift */,
@@ -99,6 +108,9 @@
 				E5AA9EFE23E03DCF00531322 /* LaunchScreen.storyboard */,
 				E5AA9F0123E03DCF00531322 /* Info.plist */,
 				E5AA9F0723E03E7900531322 /* UICustomCollectionViewLayout.swift */,
+				E55EBC5D23EC15F000699BCE /* ItemDetailsViewController.swift */,
+				E55EBC6123EC535E00699BCE /* FirebaseManager.swift */,
+				E55EBC6323ECB6E200699BCE /* Models.swift */,
 			);
 			path = yogismarket;
 			sourceTree = "<group>";
@@ -166,6 +178,7 @@
 				E5AA9F0023E03DCF00531322 /* LaunchScreen.storyboard in Resources */,
 				E5AA9EFD23E03DCF00531322 /* Assets.xcassets in Resources */,
 				E5AA9EFB23E03DCB00531322 /* Main.storyboard in Resources */,
+				E55EBC6023EC40AF00699BCE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,10 +234,13 @@
 				E5AA9EF823E03DCB00531322 /* ViewXXController.swift in Sources */,
 				E5AA9F0A23E0402F00531322 /* UICustomCollectionViewCell.swift in Sources */,
 				E5AA9EF423E03DCB00531322 /* AppDelegate.swift in Sources */,
+				E55EBC6223EC535E00699BCE /* FirebaseManager.swift in Sources */,
 				E5AA9F0C23E0853100531322 /* MainViewController.swift in Sources */,
 				E5AA9EF623E03DCB00531322 /* SceneDelegate.swift in Sources */,
 				E5AA9F1423E1AEC300531322 /* CategoryCollectionViewCell.swift in Sources */,
+				E55EBC5E23EC15F000699BCE /* ItemDetailsViewController.swift in Sources */,
 				E5AA9F0823E03E7900531322 /* UICustomCollectionViewLayout.swift in Sources */,
+				E55EBC6423ECB6E300699BCE /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

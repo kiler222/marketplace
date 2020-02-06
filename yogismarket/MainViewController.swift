@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 
+
 class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
 
@@ -18,6 +19,10 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     @IBOutlet weak var itemsCollectionView: UICollectionView!
 
+    
+    var itemList : [Item] = []
+    
+    var itemName = ""
     
     struct Model {
         var index: Int
@@ -32,10 +37,10 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     }
     
-    private let dataSet = [Model(index: 1, price: "9$", title: "Yoga pants", isBig: false), Model(index: 2, price: "9$", title: "Yoga pants", isBig: false), Model(index: 3, price: "9$", title: "Yoga pants", isBig: false),
-                           Model(index: 4, price: "3$", title: "Yoga pants", isBig: true), Model(index: 5, price: "9$", title: "Yoga pants", isBig: false), Model(index: 6, price: "9$", title: "My yoga pants", isBig: false),
-                           Model(index: 7, price: "9$", title: "Yoga pants", isBig: false), Model(index: 8, price: "9$", title: "Yoga pants", isBig: false), Model(index: 9, price: "12$", title: "Old one yoga pants", isBig: false),
-                           Model(index: 10, price: "9$", title: "Yoga pants", isBig: false), Model(index: 11, price: "9$", title: "Yoga pants", isBig: false), Model(index: 12, price: "9$", title: "Yoga pants", isBig: false)]
+    private let dataSet = [Model(index: 1, price: "9$", title: "Yoga New pants", isBig: false), Model(index: 2, price: "9$", title: "Yoga black bag", isBig: false), Model(index: 3, price: "9$", title: "Yoga pants", isBig: false),
+                           Model(index: 4, price: "3$", title: "Another yoga pants", isBig: true), Model(index: 5, price: "9$", title: "Yoga cool pants", isBig: false), Model(index: 6, price: "9$", title: "My yoga pants", isBig: false),
+                           Model(index: 7, price: "9$", title: "Yoga cookbook", isBig: false), Model(index: 8, price: "9$", title: "Yoga mat", isBig: false), Model(index: 9, price: "12$", title: "Old one yoga pants", isBig: false),
+                           Model(index: 10, price: "9$", title: "Yoga Top", isBig: false), Model(index: 11, price: "9$", title: "Yoga bag", isBig: false), Model(index: 12, price: "9$", title: "Yoga Green pants", isBig: false)]
     
     let cat = ["Mats", "Pants", "Bras", "Tops", "Bags", "Accessories", "Books", "Other" ]
     
@@ -60,53 +65,37 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         itemsCollectionView.delegate = self
-        
         itemsCollectionView.dataSource = self
+        
+        
+        FirebaseManager.sharedInstance.getItems() { (items) in
+            
+            self.itemList = items
+            self.itemsCollectionView.reloadData()
+            
+//            print("PJ \(itemList)")
+            
+            
+        }
+        
+        
 
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical //.horizontal
-//        layout.minimumLineSpacing = 5
-//        layout.minimumInteritemSpacing = 5
-//        itemsCollectionView.setCollectionViewLayout(layout, animated: true)
-        
-        
-        print("PJ viewDidLoad")
-        
-//        self.itemsCollectionView?.delegate = self
-//        self.itemsCollectionView?.numberOfColumns = 2
-        //self.customCollectionViewLayout?.cellPadding = 30
     }
 
     
-    
-//    func collectionView(_ collectionView: UICollectionView,
-//                        heightForItemAt
-//                        indexPath: IndexPath,
-//                        with width: CGFloat) -> CGFloat {
-//        if collectionView == self.itemsCollectionView{
-//            let height = Int.random(in: 300...350)
-//            print("PJ height: \(height)")
-//            return CGFloat(height)
-//        } else {
-//            return CGFloat(50)
-//
-//        }
-//
-//    }
- 
- 
+
 
     
     //UICollectionViewDelegateFlowLayout methods
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat
     {
         
-        return 4;
+        return 4
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat
     {
         
-        return 1;
+        return 1
     }
     
     
@@ -120,9 +109,6 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
             let size:CGFloat = (itemsCollectionView.frame.size.width - space) / 2.0
             let shift = Int.random(in: -3...3)*10
             
-//            CGFloat(shift)
-//            let height = 2*size + shift.
-//            print("PJ shift: \(shift) cgfloat: \(CGFloat(shift))")
             return CGSize(width: size, height: size*1.5 )
         }
     
@@ -141,7 +127,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         if collectionView == self.categoryCollectionView{
             return cat.count
         } else {
-            return dataSet.count
+            return itemList.count
         }
         
         
@@ -162,11 +148,11 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         } else {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICustomCollectionViewCell", for: indexPath) as! UICustomCollectionViewCell
-            cell.price.text = dataSet[indexPath.row].price
-            cell.title.text = dataSet[indexPath.row].title
-            cell.image.sd_setImage(with: URL(string: obrazki.randomElement()!), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.price.text = "\(itemList[indexPath.row].itemPrice) €"  // dataSet[indexPath.row].price
+            cell.title.text = itemList[indexPath.row].itemName
+            cell.image.sd_setImage(with: URL(string: itemList[indexPath.row].itemImages[0]), placeholderImage: UIImage(named: "placeholder.png"))
           
-            print("PJ indexPath: \(indexPath.row) i price: \(dataSet[indexPath.row].price)")
+//            print("PJ indexPath: \(indexPath.row) i price: \(dataSet[indexPath.row].price)")
             return cell //?? UICollectionViewCell()
             
         }
@@ -179,16 +165,74 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
             print("PJ klikiety indexpath: \(indexPath.row) na collectionview: cat)")
         } else {
             print("PJ klikiety indexpath: \(indexPath.row) na collectionview: items)")
+            
+//            let vc  = storyboard?.instantiateViewController(withIdentifier: "ItemDetailsViewController") as! ItemDetailsViewController
+            
+       
+//            vc.itemNameText = "dataSet[indexPath.row].title"
+
+            if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ItemDetailsViewController") as? ItemDetailsViewController
+            {
+                vc.itemNameText = itemList[indexPath.row].itemName
+                vc.itemPrice = "\(itemList[indexPath.row].itemPrice) €"
+                vc.itemImage = itemList[indexPath.row].itemImages[0]
+                vc.itemLocationLong = itemList[indexPath.row].itemLocation.longitude
+                vc.itemLocationLat = itemList[indexPath.row].itemLocation.latitude
+                vc.itemDescription = itemList[indexPath.row].itemDescription
+                //TODO - jak chce zeby okno wchodzilo z boku to trzeba je pushowac z navigationController
+//                if let navigator = navigationController {
+//                    navigator.pushViewController(vc, animated: true)
+//                }
+          
+                
+                present(vc, animated: true, completion: nil)
+            }
+            
+
+//            performSegue(withIdentifier: "ShowItemDetails", sender: nil)
+            
+//                    pushVC(viewController: vc)
+            
+            
         }
     }
     
     
-    // custom function to generate a random UIColor
-    func randomColor() -> UIColor{
-        let red = CGFloat(drand48())
-        let green = CGFloat(drand48())
-        let blue = CGFloat(drand48())
-        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+                print("PJ czy robie prepare segue? \(segue.identifier)")
+        
+        if segue.identifier == "ShowItemDetails"
+        {
+            
+            if let destinationVC = segue.destination as? ItemDetailsViewController {
+            print("PJ ustawienie itename w segue")
+                destinationVC.itemNameText = itemName
+            }
+        }
     }
     
+    
+
+    
+    
+    
+    
+    // custom function to generate a random UIColor
+//    func randomColor() -> UIColor{
+//        let red = CGFloat(drand48())
+//        let green = CGFloat(drand48())
+//        let blue = CGFloat(drand48())
+//        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+//    }
+    
+    
+//    public func getViewController(name : String) -> MainViewController{
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: name) as! MainViewController
+//        return vc
+//    }
+//
+//    public func pushVC(viewController : UIViewController){
+//        self.navigationController?.pushViewController(viewController, animated: true)
+//    }
 }
