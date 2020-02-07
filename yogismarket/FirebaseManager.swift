@@ -32,10 +32,11 @@ class FirebaseManager: NSObject {
                     let itemDescription = document.data()["itemDescription"] as! String
                     let itemLocation = document.data()["itemLocation"] as! GeoPoint
                     let itemImages = document.data()["itemImages"] as! Array<String>
+                    let category = document.data()["category"] as! String
                     
                     let tempItem = Item(itemName: itemName, itemPrice: itemPrice,
                                         itemDescription: itemDescription, itemImages: itemImages,
-                                        itemLocation: itemLocation)
+                                        itemLocation: itemLocation, category: category)
 //                    print("PJ \(document.documentID) => \(document.data())")
                     itemList.append(tempItem)
                 }

@@ -16,4 +16,12 @@ struct Item {
     let itemDescription: String
     let itemImages: Array<String>
     let itemLocation: GeoPoint
+    let category: String
+    
+    enum Category {
+      case all
+      case pants
+      case mats
+      case other
+    }
 }

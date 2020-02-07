@@ -21,15 +21,25 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     
     var itemList : [Item] = []
+    var filteredItemList : [Item] = []
+    let searchController = UISearchController(searchResultsController: nil)
+    var isSearchBarEmpty: Bool {
+             return searchController.searchBar.text?.isEmpty ?? true
+           }
+           
+    var isFiltering: Bool {
+             return searchController.isActive && !isSearchBarEmpty
+           }
+    
     
     var itemName = ""
     
-    struct Model {
-        var index: Int
-        var price: String
-        var title: String
-        var isBig: Bool
-    }
+//    struct Model {
+//        var index: Int
+//        var price: String
+//        var title: String
+//        var isBig: Bool
+//    }
 
     struct Categories {
         var name: String
@@ -37,10 +47,10 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     }
     
-    private let dataSet = [Model(index: 1, price: "9$", title: "Yoga New pants", isBig: false), Model(index: 2, price: "9$", title: "Yoga black bag", isBig: false), Model(index: 3, price: "9$", title: "Yoga pants", isBig: false),
-                           Model(index: 4, price: "3$", title: "Another yoga pants", isBig: true), Model(index: 5, price: "9$", title: "Yoga cool pants", isBig: false), Model(index: 6, price: "9$", title: "My yoga pants", isBig: false),
-                           Model(index: 7, price: "9$", title: "Yoga cookbook", isBig: false), Model(index: 8, price: "9$", title: "Yoga mat", isBig: false), Model(index: 9, price: "12$", title: "Old one yoga pants", isBig: false),
-                           Model(index: 10, price: "9$", title: "Yoga Top", isBig: false), Model(index: 11, price: "9$", title: "Yoga bag", isBig: false), Model(index: 12, price: "9$", title: "Yoga Green pants", isBig: false)]
+//    private let dataSet = [Model(index: 1, price: "9$", title: "Yoga New pants", isBig: false), Model(index: 2, price: "9$", title: "Yoga black bag", isBig: false), Model(index: 3, price: "9$", title: "Yoga pants", isBig: false),
+//                           Model(index: 4, price: "3$", title: "Another yoga pants", isBig: true), Model(index: 5, price: "9$", title: "Yoga cool pants", isBig: false), Model(index: 6, price: "9$", title: "My yoga pants", isBig: false),
+//                           Model(index: 7, price: "9$", title: "Yoga cookbook", isBig: false), Model(index: 8, price: "9$", title: "Yoga mat", isBig: false), Model(index: 9, price: "12$", title: "Old one yoga pants", isBig: false),
+//                           Model(index: 10, price: "9$", title: "Yoga Top", isBig: false), Model(index: 11, price: "9$", title: "Yoga bag", isBig: false), Model(index: 12, price: "9$", title: "Yoga Green pants", isBig: false)]
     
     let cat = ["Mats", "Pants", "Bras", "Tops", "Bags", "Accessories", "Books", "Other" ]
     
@@ -54,12 +64,12 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
                           Categories(name: "Other", image: UIImage(systemName: "globe")!)
         ]
     
-    let obrazki = [  "https://bambooclothing.co.uk/wp-content/uploads/BAM1135-yoga-jersey-pants-ocean-teal-bamboo-clothing-1-2-683x1024.jpg", "https://media.karousell.com/media/photos/products/2018/06/28/lululemon__domyos_yoga_tops_1530174290_90ceca2d_progressive.jpg",
-    "https://media.karousell.com/media/photos/products/2019/06/09/lulu_lemon_yoga_tops_1560055780_55c759de_progressive.jpg",
-    "https://i.etsystatic.com/12414401/r/il/5c29b1/1392029807/il_fullxfull.1392029807_7nf9.jpg",
-    "https://i.etsystatic.com/9456292/r/il/724e25/857454993/il_fullxfull.857454993_hxk6.jpg",
-    "https://i.etsystatic.com/12203369/r/il/5b11bd/2097111020/il_fullxfull.2097111020_f3br.jpg"]
-    
+//    let obrazki = [  "https://bambooclothing.co.uk/wp-content/uploads/BAM1135-yoga-jersey-pants-ocean-teal-bamboo-clothing-1-2-683x1024.jpg", "https://media.karousell.com/media/photos/products/2018/06/28/lululemon__domyos_yoga_tops_1530174290_90ceca2d_progressive.jpg",
+//    "https://media.karousell.com/media/photos/products/2019/06/09/lulu_lemon_yoga_tops_1560055780_55c759de_progressive.jpg",
+//    "https://i.etsystatic.com/12414401/r/il/5c29b1/1392029807/il_fullxfull.1392029807_7nf9.jpg",
+//    "https://i.etsystatic.com/9456292/r/il/724e25/857454993/il_fullxfull.857454993_hxk6.jpg",
+//    "https://i.etsystatic.com/12203369/r/il/5b11bd/2097111020/il_fullxfull.2097111020_f3br.jpg"]
+//
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryCollectionView.delegate = self
@@ -67,6 +77,19 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
         
+       
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search yogismarket"
+        searchController.hidesNavigationBarDuringPresentation = false
+//        navigationItem.title = "Yogis Market"
+        
+        navigationItem.titleView = searchController.searchBar
+//        searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal
+//        navigationItem.searchController = searchController
+        definesPresentationContext = true
+
+       
         
         FirebaseManager.sharedInstance.getItems() { (items) in
             
@@ -79,9 +102,18 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
         
         
-
+        
     }
 
+    
+    func filterContentForSearchText(_ searchText: String,
+                                    category: Item.Category? = nil) {
+      filteredItemList = itemList.filter { (item: Item) -> Bool in
+        return item.category.lowercased().contains(searchText.lowercased())
+      }
+      
+      itemsCollectionView.reloadData()
+    }
     
 
 
@@ -127,7 +159,11 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         if collectionView == self.categoryCollectionView{
             return cat.count
         } else {
+            if isFiltering {
+              return filteredItemList.count
+            }
             return itemList.count
+
         }
         
         
@@ -147,10 +183,21 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
             
         } else {
             
+            
+            
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICustomCollectionViewCell", for: indexPath) as! UICustomCollectionViewCell
-            cell.price.text = "\(itemList[indexPath.row].itemPrice) €"  // dataSet[indexPath.row].price
-            cell.title.text = itemList[indexPath.row].itemName
-            cell.image.sd_setImage(with: URL(string: itemList[indexPath.row].itemImages[0]), placeholderImage: UIImage(named: "placeholder.png"))
+            
+            let item: Item
+            if isFiltering {
+              item = filteredItemList[indexPath.row]
+            } else {
+              item = itemList[indexPath.row]
+            }
+            
+            
+            cell.price.text = "\(item.itemPrice) €"  // dataSet[indexPath.row].price
+            cell.title.text = item.itemName
+            cell.image.sd_setImage(with: URL(string: item.itemImages[0]), placeholderImage: UIImage(named: "placeholder.png"))
           
 //            print("PJ indexPath: \(indexPath.row) i price: \(dataSet[indexPath.row].price)")
             return cell //?? UICollectionViewCell()
@@ -235,4 +282,14 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 //    public func pushVC(viewController : UIViewController){
 //        self.navigationController?.pushViewController(viewController, animated: true)
 //    }
+}
+
+
+
+extension MainViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    let searchBar = searchController.searchBar
+    filterContentForSearchText(searchBar.text!)
+
+  }
 }
