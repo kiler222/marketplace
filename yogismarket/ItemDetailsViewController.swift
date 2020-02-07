@@ -9,10 +9,12 @@
 import UIKit
 import MapKit
 
-class ItemDetailsViewController: UIViewController {
+class ItemDetailsViewController: UIViewController, UIScrollViewDelegate {
 
+    var frame = CGRect.zero
     var itemNameText = ""
     var itemImage = ""
+    var imagesArray : [String] = []
     var itemPrice = ""
     var itemLocationLong: Double = 0.0
     var itemLocationLat: Double = 0.0
@@ -23,10 +25,16 @@ class ItemDetailsViewController: UIViewController {
     @IBOutlet weak var itemNameField: UILabel!
     @IBOutlet weak var mapField: MKMapView!
     @IBOutlet weak var itemDescriptionField: UILabel!
+    @IBOutlet weak var imagesScrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupScreens()
+
+        imagesScrollView.delegate = self
+        pageControl.numberOfPages = imagesArray.count
         itemNameField.text = itemNameText
         itemPriceField.text = itemPrice
         itemDescriptionField.text = itemDescription
@@ -51,4 +59,29 @@ class ItemDetailsViewController: UIViewController {
     }
     */
 
+    
+    func setupScreens() {
+        for index in 0..<imagesArray.count {
+            // 1.
+            frame.origin.x = imagesScrollView.frame.size.width * CGFloat(index)
+            frame.size = imagesScrollView.frame.size
+            
+            // 2.
+            let imgView = UIImageView(frame: frame)
+            imgView.sd_setImage(with: URL(string: imagesArray[index]), placeholderImage: UIImage(named: "placeholder.png"))
+            imgView.contentMode = .scaleAspectFill
+            self.imagesScrollView.addSubview(imgView)
+        }
+
+        // 3.
+        imagesScrollView.contentSize = CGSize(width: (imagesScrollView.frame.size.width * CGFloat(imagesArray.count)), height: imagesScrollView.frame.size.height)
+        imagesScrollView.delegate = self
+    }
+    
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width
+        pageControl.currentPage = Int(pageNumber)
+    }
+    
 }

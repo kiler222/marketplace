@@ -52,16 +52,17 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 //                           Model(index: 7, price: "9$", title: "Yoga cookbook", isBig: false), Model(index: 8, price: "9$", title: "Yoga mat", isBig: false), Model(index: 9, price: "12$", title: "Old one yoga pants", isBig: false),
 //                           Model(index: 10, price: "9$", title: "Yoga Top", isBig: false), Model(index: 11, price: "9$", title: "Yoga bag", isBig: false), Model(index: 12, price: "9$", title: "Yoga Green pants", isBig: false)]
     
-    let cat = ["Mats", "Pants", "Bras", "Tops", "Bags", "Accessories", "Books", "Other" ]
+//    let cat = ["Mats", "Pants", "Bras", "Tops", "Bags", "Accessories", "Books", "Other" ]
     
-    private let catSet = [Categories(name: "Mats", image: UIImage(systemName: "rectangle")!),
+    private let catSet = [Categories(name: "All", image: UIImage(systemName: "globe")!),
+                        Categories(name: "Mats", image: UIImage(systemName: "rectangle")!),
                           Categories(name: "Pants", image: UIImage(systemName: "sun.max")!),
                           Categories(name: "Bras", image: UIImage(systemName: "person")!),
                           Categories(name: "Tops", image: UIImage(systemName: "flame")!),
                           Categories(name: "Bags", image: UIImage(systemName: "bag")!),
                           Categories(name: "Accessories", image: UIImage(systemName: "cart")!),
-                          Categories(name: "Books", image: UIImage(systemName: "book")!),
-                          Categories(name: "Other", image: UIImage(systemName: "globe")!)
+                          Categories(name: "Books", image: UIImage(systemName: "book")!)
+                          
         ]
     
 //    let obrazki = [  "https://bambooclothing.co.uk/wp-content/uploads/BAM1135-yoga-jersey-pants-ocean-teal-bamboo-clothing-1-2-683x1024.jpg", "https://media.karousell.com/media/photos/products/2018/06/28/lululemon__domyos_yoga_tops_1530174290_90ceca2d_progressive.jpg",
@@ -119,22 +120,30 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     
     //UICollectionViewDelegateFlowLayout methods
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat
-    {
-        
-        return 4
-    }
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat
-    {
-        
-        return 1
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
+//    {
+//        
+//        return 4
+//    }
+    
+//
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat
+//    {
+//
+//        return 4
+//    }
+//    
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat
+//    {
+//        
+//        return 1
+//    }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if collectionView == self.categoryCollectionView{
-            return CGSize(width: 100,height: 75)
+            return CGSize(width: 100,height: 40)
         } else {
            let flowayout = collectionViewLayout as? UICollectionViewFlowLayout
            let space: CGFloat = (flowayout?.minimumInteritemSpacing ?? 0.0) + (flowayout?.sectionInset.left ?? 0.0) + (flowayout?.sectionInset.right ?? 0.0)
@@ -157,7 +166,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == self.categoryCollectionView{
-            return cat.count
+            return catSet.count
         } else {
             if isFiltering {
               return filteredItemList.count
@@ -212,20 +221,24 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
             print("PJ klikiety indexpath: \(indexPath.row) na collectionview: cat)")
         } else {
             print("PJ klikiety indexpath: \(indexPath.row) na collectionview: items)")
-            
 //            let vc  = storyboard?.instantiateViewController(withIdentifier: "ItemDetailsViewController") as! ItemDetailsViewController
-            
+            let item: Item
+            if isFiltering {
+              item = filteredItemList[indexPath.row]
+            } else {
+              item = itemList[indexPath.row]
+            }
        
-//            vc.itemNameText = "dataSet[indexPath.row].title"
 
             if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ItemDetailsViewController") as? ItemDetailsViewController
             {
-                vc.itemNameText = itemList[indexPath.row].itemName
-                vc.itemPrice = "\(itemList[indexPath.row].itemPrice) €"
-                vc.itemImage = itemList[indexPath.row].itemImages[0]
-                vc.itemLocationLong = itemList[indexPath.row].itemLocation.longitude
-                vc.itemLocationLat = itemList[indexPath.row].itemLocation.latitude
-                vc.itemDescription = itemList[indexPath.row].itemDescription
+                vc.itemNameText = item.itemName
+                vc.itemPrice = "\(item.itemPrice) €"
+                vc.itemImage = item.itemImages[0]
+                vc.itemLocationLong = item.itemLocation.longitude
+                vc.itemLocationLat = item.itemLocation.latitude
+                vc.itemDescription = item.itemDescription
+                vc.imagesArray = item.itemImages
                 //TODO - jak chce zeby okno wchodzilo z boku to trzeba je pushowac z navigationController
 //                if let navigator = navigationController {
 //                    navigator.pushViewController(vc, animated: true)

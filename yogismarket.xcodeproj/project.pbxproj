@@ -12,6 +12,7 @@
 		E55EBC6023EC40AF00699BCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E55EBC5F23EC40AF00699BCE /* GoogleService-Info.plist */; };
 		E55EBC6223EC535E00699BCE /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC6123EC535E00699BCE /* FirebaseManager.swift */; };
 		E55EBC6423ECB6E300699BCE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC6323ECB6E200699BCE /* Models.swift */; };
+		E55EBC6623EDB8EC00699BCE /* ShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC6523EDB8EA00699BCE /* ShowImageViewController.swift */; };
 		E5AA9EF423E03DCB00531322 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF323E03DCB00531322 /* AppDelegate.swift */; };
 		E5AA9EF623E03DCB00531322 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF523E03DCB00531322 /* SceneDelegate.swift */; };
 		E5AA9EF823E03DCB00531322 /* ViewXXController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF723E03DCB00531322 /* ViewXXController.swift */; };
@@ -32,6 +33,7 @@
 		E55EBC5F23EC40AF00699BCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E55EBC6123EC535E00699BCE /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		E55EBC6323ECB6E200699BCE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		E55EBC6523EDB8EA00699BCE /* ShowImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageViewController.swift; sourceTree = "<group>"; };
 		E5AA9EF023E03DCB00531322 /* yogismarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yogismarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5AA9EF323E03DCB00531322 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5AA9EF523E03DCB00531322 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				E5AA9F0123E03DCF00531322 /* Info.plist */,
 				E5AA9F0723E03E7900531322 /* UICustomCollectionViewLayout.swift */,
 				E55EBC5D23EC15F000699BCE /* ItemDetailsViewController.swift */,
+				E55EBC6523EDB8EA00699BCE /* ShowImageViewController.swift */,
 				E55EBC6123EC535E00699BCE /* FirebaseManager.swift */,
 				E55EBC6323ECB6E200699BCE /* Models.swift */,
 			);
@@ -235,6 +238,7 @@
 				E5AA9F0A23E0402F00531322 /* UICustomCollectionViewCell.swift in Sources */,
 				E5AA9EF423E03DCB00531322 /* AppDelegate.swift in Sources */,
 				E55EBC6223EC535E00699BCE /* FirebaseManager.swift in Sources */,
+				E55EBC6623EDB8EC00699BCE /* ShowImageViewController.swift in Sources */,
 				E5AA9F0C23E0853100531322 /* MainViewController.swift in Sources */,
 				E5AA9EF623E03DCB00531322 /* SceneDelegate.swift in Sources */,
 				E5AA9F1423E1AEC300531322 /* CategoryCollectionViewCell.swift in Sources */,
