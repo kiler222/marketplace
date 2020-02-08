@@ -38,8 +38,8 @@ class ItemDetailsViewController: UIViewController, UIScrollViewDelegate {
         itemNameField.text = itemNameText
         itemPriceField.text = itemPrice
         itemDescriptionField.text = itemDescription
-        itemImageField.sd_setImage(with: URL(string: itemImage), placeholderImage: UIImage(named: "placeholder.png"))
-        print("PJ long: \(itemLocationLat), lat: \(itemLocationLong)")
+//        itemImageField.sd_setImage(with: URL(string: itemImage), placeholderImage: UIImage(named: "placeholder.png"))
+//        print("PJ long: \(itemLocationLat), lat: \(itemLocationLong)")
         
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let locValue = CLLocationCoordinate2DMake(itemLocationLat, itemLocationLong)
@@ -69,7 +69,16 @@ class ItemDetailsViewController: UIViewController, UIScrollViewDelegate {
             // 2.
             let imgView = UIImageView(frame: frame)
             imgView.sd_setImage(with: URL(string: imagesArray[index]), placeholderImage: UIImage(named: "placeholder.png"))
-            imgView.contentMode = .scaleAspectFill
+            imgView.contentMode = .scaleAspectFit
+            
+            
+            let gesture = UITapGestureRecognizer(target: self, action:  #selector (self.zoomImage(_:)))
+            gesture.numberOfTapsRequired = 1
+            gesture.numberOfTouchesRequired = 1
+            
+            imgView.isUserInteractionEnabled = true
+            imgView.addGestureRecognizer(gesture)
+                      
             self.imagesScrollView.addSubview(imgView)
         }
 
@@ -82,6 +91,23 @@ class ItemDetailsViewController: UIViewController, UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width
         pageControl.currentPage = Int(pageNumber)
+    }
+    
+    
+    @objc func zoomImage(_ sender : UITapGestureRecognizer) {
+//        let tappedImage = sender.view as! UIImageView
+        
+        print("PJ klikniety zoomImage")
+        
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ShowImageViewController") as! ShowImageViewController
+        
+        vc.imagesArray = imagesArray
+
+        
+//        navigationController?.pushViewController(vc, animated: false)
+        
+        
+        present(vc, animated: true, completion: nil)
     }
     
 }

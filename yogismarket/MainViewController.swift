@@ -8,17 +8,27 @@
 
 import Foundation
 import UIKit
+import SDWebImage
+import GoogleMobileAds
 
 
-
-class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+    
     
 
     
+    @IBOutlet weak var nativeAdPlaceholder: UIView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     
     @IBOutlet weak var itemsCollectionView: UICollectionView!
 
+    var adLoader: GADAdLoader!
+//    var nativeAd: GADUnifiedNativeAd!
+    var nativeAdView: GADUnifiedNativeAdView!
+    var heightConstraint : NSLayoutConstraint?
+//    var nativeAds = [GADUnifiedNativeAd]()
+    
+    
     
     var itemList : [Item] = []
     var filteredItemList : [Item] = []
@@ -31,6 +41,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
              return searchController.isActive && !isSearchBarEmpty
            }
     
+    var isCategorySelected = false
     
     var itemName = ""
     
@@ -47,17 +58,10 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     }
     
-//    private let dataSet = [Model(index: 1, price: "9$", title: "Yoga New pants", isBig: false), Model(index: 2, price: "9$", title: "Yoga black bag", isBig: false), Model(index: 3, price: "9$", title: "Yoga pants", isBig: false),
-//                           Model(index: 4, price: "3$", title: "Another yoga pants", isBig: true), Model(index: 5, price: "9$", title: "Yoga cool pants", isBig: false), Model(index: 6, price: "9$", title: "My yoga pants", isBig: false),
-//                           Model(index: 7, price: "9$", title: "Yoga cookbook", isBig: false), Model(index: 8, price: "9$", title: "Yoga mat", isBig: false), Model(index: 9, price: "12$", title: "Old one yoga pants", isBig: false),
-//                           Model(index: 10, price: "9$", title: "Yoga Top", isBig: false), Model(index: 11, price: "9$", title: "Yoga bag", isBig: false), Model(index: 12, price: "9$", title: "Yoga Green pants", isBig: false)]
-    
-//    let cat = ["Mats", "Pants", "Bras", "Tops", "Bags", "Accessories", "Books", "Other" ]
-    
+
     private let catSet = [Categories(name: "All", image: UIImage(systemName: "globe")!),
                         Categories(name: "Mats", image: UIImage(systemName: "rectangle")!),
                           Categories(name: "Pants", image: UIImage(systemName: "sun.max")!),
-                          Categories(name: "Bras", image: UIImage(systemName: "person")!),
                           Categories(name: "Tops", image: UIImage(systemName: "flame")!),
                           Categories(name: "Bags", image: UIImage(systemName: "bag")!),
                           Categories(name: "Accessories", image: UIImage(systemName: "cart")!),
@@ -65,20 +69,44 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
                           
         ]
     
-//    let obrazki = [  "https://bambooclothing.co.uk/wp-content/uploads/BAM1135-yoga-jersey-pants-ocean-teal-bamboo-clothing-1-2-683x1024.jpg", "https://media.karousell.com/media/photos/products/2018/06/28/lululemon__domyos_yoga_tops_1530174290_90ceca2d_progressive.jpg",
-//    "https://media.karousell.com/media/photos/products/2019/06/09/lulu_lemon_yoga_tops_1560055780_55c759de_progressive.jpg",
-//    "https://i.etsystatic.com/12414401/r/il/5c29b1/1392029807/il_fullxfull.1392029807_7nf9.jpg",
-//    "https://i.etsystatic.com/9456292/r/il/724e25/857454993/il_fullxfull.857454993_hxk6.jpg",
-//    "https://i.etsystatic.com/12203369/r/il/5b11bd/2097111020/il_fullxfull.2097111020_f3br.jpg"]
-//
+//    public func adLoader(_ adLoader: GADAdLoader,
+//    didReceive nativeAd: GADUnifiedNativeAd)
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let layout = itemsCollectionView?.collectionViewLayout as? CustomLayout {
+          layout.delegate = self
+        }
+
+        let multipleAdsOptions = GADMultipleAdsAdLoaderOptions()
+        multipleAdsOptions.numberOfAds = 5
+
+        
+        //admob produkcja ca-app-pub-8857410705016797/1542402291
+        adLoader = GADAdLoader(adUnitID: "ca-app-pub-3940256099942544/3986624511", rootViewController: self,
+            adTypes: [GADAdLoaderAdType.unifiedNative],
+            options: [multipleAdsOptions])
+        adLoader.delegate = self
+        adLoader.load(GADRequest())
+
+
+        
+        guard let nibObjects = Bundle.main.loadNibNamed("NativeAdView", owner: nil, options: nil),
+          let adView = nibObjects.first as? GADUnifiedNativeAdView else {
+            assert(false, "Could not load nib file for adView")
+        }
+        setAdView(adView)
+        
+        
+        
+        
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
         
-       
+        
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search yogismarket"
@@ -107,57 +135,50 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     
+    func setAdView(_ view: GADUnifiedNativeAdView) {
+      // Remove the previous ad view.
+      nativeAdView = view
+      nativeAdPlaceholder.addSubview(nativeAdView)
+      nativeAdView.translatesAutoresizingMaskIntoConstraints = false
+
+      // Layout constraints for positioning the native ad view to stretch the entire width and height
+      // of the nativeAdPlaceholder.
+      let viewDictionary = ["_nativeAdView": nativeAdView!]
+      self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[_nativeAdView]|",
+                                                              options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: viewDictionary))
+      self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[_nativeAdView]|",
+                                                              options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: viewDictionary))
+    }
+    
+    
+//    func adLoader(_ adLoader: GADAdLoader,
+//                  didReceive nativeAd: GADUnifiedNativeAd) {
+//      print("PJ  A unified native ad has loaded, and can be displayed.")
+//        nativeAds.append(nativeAd)
+//    }
+//
+//    func adLoaderDidFinishLoading(_ adLoader: GADAdLoader) {
+//        print("PJ  The adLoader has finished loading ads, and a new request can be sent.")
+//    }
+
+
+   
+    
+    
+    
     func filterContentForSearchText(_ searchText: String,
                                     category: Item.Category? = nil) {
+        
+        
       filteredItemList = itemList.filter { (item: Item) -> Bool in
         return item.category.lowercased().contains(searchText.lowercased())
       }
-      
+//        print("PJ w filtercontentforserachtext, cat = \(searchText), filtered.count = \(filteredItemList.count)")
       itemsCollectionView.reloadData()
     }
     
 
-
     
-    //UICollectionViewDelegateFlowLayout methods
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
-//    {
-//        
-//        return 4
-//    }
-    
-//
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat
-//    {
-//
-//        return 4
-//    }
-//    
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat
-//    {
-//        
-//        return 1
-//    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        if collectionView == self.categoryCollectionView{
-            return CGSize(width: 100,height: 40)
-        } else {
-           let flowayout = collectionViewLayout as? UICollectionViewFlowLayout
-           let space: CGFloat = (flowayout?.minimumInteritemSpacing ?? 0.0) + (flowayout?.sectionInset.left ?? 0.0) + (flowayout?.sectionInset.right ?? 0.0)
-            let size:CGFloat = (itemsCollectionView.frame.size.width - space) / 2.0
-            let shift = Int.random(in: -3...3)*10
-            
-            return CGSize(width: size, height: size*1.5 )
-        }
-    
-    }
-    
-
-    
-    //UICollectionViewDatasource methods
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         
         return 1
@@ -168,7 +189,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         if collectionView == self.categoryCollectionView{
             return catSet.count
         } else {
-            if isFiltering {
+            if (isFiltering || isCategorySelected) {
               return filteredItemList.count
             }
             return itemList.count
@@ -197,10 +218,12 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICustomCollectionViewCell", for: indexPath) as! UICustomCollectionViewCell
             
             let item: Item
-            if isFiltering {
+            if (isFiltering || isCategorySelected) {
               item = filteredItemList[indexPath.row]
+//                print("PJ is filtr lub is catsel")
             } else {
               item = itemList[indexPath.row]
+//                print("PJ NOT is filtr lub is catsel")
             }
             
             
@@ -218,12 +241,28 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.categoryCollectionView {
-            print("PJ klikiety indexpath: \(indexPath.row) na collectionview: cat)")
+            print("PJ indexpath: \(indexPath.row) na catview: \(catSet[indexPath.row].name.lowercased())")
+            
+            if (catSet[indexPath.row].name.lowercased() != "all") {
+                filterContentForSearchText(catSet[indexPath.row].name.lowercased())
+                isCategorySelected = true
+            } else {
+                
+                //TODO - przejrzec logike searchbaru, gdy jest cos w niego wpisane a ktos wybierze jakas kategorię;
+                //albo na odwort ze kategoria wybrana i potem wyszukuje w danej kategorii
+                
+                filteredItemList = itemList
+                isCategorySelected = false
+                itemsCollectionView.reloadData()
+                
+            }
+            
+            
         } else {
             print("PJ klikiety indexpath: \(indexPath.row) na collectionview: items)")
-//            let vc  = storyboard?.instantiateViewController(withIdentifier: "ItemDetailsViewController") as! ItemDetailsViewController
+
             let item: Item
-            if isFiltering {
+            if (isFiltering || isCategorySelected) {
               item = filteredItemList[indexPath.row]
             } else {
               item = itemList[indexPath.row]
@@ -248,53 +287,16 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
                 present(vc, animated: true, completion: nil)
             }
             
-
-//            performSegue(withIdentifier: "ShowItemDetails", sender: nil)
-            
-//                    pushVC(viewController: vc)
             
             
         }
     }
     
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-                print("PJ czy robie prepare segue? \(segue.identifier)")
-        
-        if segue.identifier == "ShowItemDetails"
-        {
-            
-            if let destinationVC = segue.destination as? ItemDetailsViewController {
-            print("PJ ustawienie itename w segue")
-                destinationVC.itemNameText = itemName
-            }
-        }
-    }
-    
-    
+
 
     
     
     
-    
-    // custom function to generate a random UIColor
-//    func randomColor() -> UIColor{
-//        let red = CGFloat(drand48())
-//        let green = CGFloat(drand48())
-//        let blue = CGFloat(drand48())
-//        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-//    }
-    
-    
-//    public func getViewController(name : String) -> MainViewController{
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: name) as! MainViewController
-//        return vc
-//    }
-//
-//    public func pushVC(viewController : UIViewController){
-//        self.navigationController?.pushViewController(viewController, animated: true)
-//    }
 }
 
 
@@ -306,3 +308,137 @@ extension MainViewController: UISearchResultsUpdating {
 
   }
 }
+
+
+extension MainViewController: CustomLayoutDelegate {
+  func collectionView(
+      _ collectionView: UICollectionView,
+      heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
+    
+    
+    let arr : [CGFloat] = [250.0, 330.0, 275.0, 299.0]
+    let h = arr.randomElement()!
+//    print("PJ wyosowany height: \(h)")
+    return h //photos[indexPath.item].image.size.height
+  }
+}
+
+
+extension MainViewController : GADUnifiedNativeAdDelegate {
+
+  func nativeAdDidRecordClick(_ nativeAd: GADUnifiedNativeAd) {
+    print("\(#function) called")
+  }
+
+  func nativeAdDidRecordImpression(_ nativeAd: GADUnifiedNativeAd) {
+    print("\(#function) called")
+  }
+
+  func nativeAdWillPresentScreen(_ nativeAd: GADUnifiedNativeAd) {
+    print("\(#function) called")
+  }
+
+  func nativeAdWillDismissScreen(_ nativeAd: GADUnifiedNativeAd) {
+    print("\(#function) called")
+  }
+
+  func nativeAdDidDismissScreen(_ nativeAd: GADUnifiedNativeAd) {
+    print("\(#function) called")
+  }
+
+  func nativeAdWillLeaveApplication(_ nativeAd: GADUnifiedNativeAd) {
+    print("\(#function) called")
+  }
+}
+
+
+extension MainViewController : GADVideoControllerDelegate {
+
+  func videoControllerDidEndVideoPlayback(_ videoController: GADVideoController) {
+//    videoStatusLabel.text = "Video playback has ended."
+  }
+}
+
+extension MainViewController : GADAdLoaderDelegate {
+
+  func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: GADRequestError) {
+    print("\(adLoader) failed with error: \(error.localizedDescription)")
+//    refreshAdButton.isEnabled = true
+  }
+}
+
+
+
+extension MainViewController : GADUnifiedNativeAdLoaderDelegate {
+
+  func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADUnifiedNativeAd) {
+//    refreshAdButton.isEnabled = true
+    nativeAdView.nativeAd = nativeAd
+
+    print("PJ odebrany nativeAD")
+    // Set ourselves as the native ad delegate to be notified of native ad events.
+    nativeAd.delegate = self
+
+    // Deactivate the height constraint that was set when the previous video ad loaded.
+    heightConstraint?.isActive = false
+
+    // Populate the native ad view with the native ad assets.
+    // The headline and mediaContent are guaranteed to be present in every native ad.
+    (nativeAdView.headlineView as? UILabel)?.text = nativeAd.headline
+    nativeAdView.mediaView?.mediaContent = nativeAd.mediaContent
+
+    // Some native ads will include a video asset, while others do not. Apps can use the
+    // GADVideoController's hasVideoContent property to determine if one is present, and adjust their
+    // UI accordingly.
+    let mediaContent = nativeAd.mediaContent
+    if mediaContent.hasVideoContent {
+      // By acting as the delegate to the GADVideoController, this ViewController receives messages
+      // about events in the video lifecycle.
+      mediaContent.videoController.delegate = self
+//      videoStatusLabel.text = "Ad contains a video asset."
+    }
+    else {
+//      videoStatusLabel.text = "Ad does not contain a video."
+    }
+
+    // This app uses a fixed width for the GADMediaView and changes its height to match the aspect
+    // ratio of the media it displays.
+    if let mediaView = nativeAdView.mediaView, nativeAd.mediaContent.aspectRatio > 0 {
+      heightConstraint = NSLayoutConstraint(item: mediaView,
+                                            attribute: .height,
+                                            relatedBy: .equal,
+                                            toItem: mediaView,
+                                            attribute: .width,
+                                            multiplier: CGFloat(1 / nativeAd.mediaContent.aspectRatio),
+                                            constant: 0)
+      heightConstraint?.isActive = true
+    }
+
+    // These assets are not guaranteed to be present. Check that they are before
+    // showing or hiding them.
+    (nativeAdView.bodyView as? UILabel)?.text = nativeAd.body
+    nativeAdView.bodyView?.isHidden = nativeAd.body == nil
+
+    (nativeAdView.callToActionView as? UIButton)?.setTitle(nativeAd.callToAction, for: .normal)
+    nativeAdView.callToActionView?.isHidden = nativeAd.callToAction == nil
+
+    (nativeAdView.iconView as? UIImageView)?.image = nativeAd.icon?.image
+    nativeAdView.iconView?.isHidden = nativeAd.icon == nil
+
+//    (nativeAdView.starRatingView as? UIImageView)?.image = imageOfStars(from:nativeAd.starRating)
+//    nativeAdView.starRatingView?.isHidden = nativeAd.starRating == nil
+
+    (nativeAdView.storeView as? UILabel)?.text = nativeAd.store
+    nativeAdView.storeView?.isHidden = nativeAd.store == nil
+
+    (nativeAdView.priceView as? UILabel)?.text = nativeAd.price
+    nativeAdView.priceView?.isHidden = nativeAd.price == nil
+
+    (nativeAdView.advertiserView as? UILabel)?.text = nativeAd.advertiser
+    nativeAdView.advertiserView?.isHidden = nativeAd.advertiser == nil
+
+    // In order for the SDK to process touch events properly, user interaction should be disabled.
+    nativeAdView.callToActionView?.isUserInteractionEnabled = false
+  }
+}
+

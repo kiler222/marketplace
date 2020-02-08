@@ -10,13 +10,13 @@ import UIKit
 
 class UICustomCollectionViewCell: UICollectionViewCell {
 
-    
+
     @IBOutlet weak var price: UILabel!
-    
-    
+
+
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var title: UILabel!
-    
-    
+
+
 }
 

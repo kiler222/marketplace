@@ -17,7 +17,7 @@ class FirebaseManager: NSObject {
     var db: Firestore!
 
     func getItems(completion: @escaping (Array<Item>) -> Void){
-        print("PJ get Items")
+//        print("PJ get Items")
         db = Firestore.firestore()
         
         db.collection("items").getDocuments() { (querySnapshot, err) in
