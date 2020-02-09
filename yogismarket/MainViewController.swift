@@ -17,7 +17,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     
 
     
-    @IBOutlet weak var nativeAdPlaceholder: UIView!
+   
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     
     @IBOutlet weak var itemsCollectionView: UICollectionView!
@@ -30,7 +30,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     
     
-    var itemList : [Item] = []
+    var itemList : [Any] = []
     var filteredItemList : [Item] = []
     let searchController = UISearchController(searchResultsController: nil)
     var isSearchBarEmpty: Bool {
@@ -80,23 +80,28 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
 
         let multipleAdsOptions = GADMultipleAdsAdLoaderOptions()
-        multipleAdsOptions.numberOfAds = 5
-
+        multipleAdsOptions.numberOfAds = 1
+        
+        let adMediaOrientation = GADNativeAdMediaAdLoaderOptions()
+        adMediaOrientation.mediaAspectRatio = .portrait
+        
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "kGADSimulatorID" ]
+        
         
         //admob produkcja ca-app-pub-8857410705016797/1542402291
         adLoader = GADAdLoader(adUnitID: "ca-app-pub-3940256099942544/3986624511", rootViewController: self,
             adTypes: [GADAdLoaderAdType.unifiedNative],
-            options: [multipleAdsOptions])
+            options: [multipleAdsOptions, adMediaOrientation])
         adLoader.delegate = self
         adLoader.load(GADRequest())
 
 
         
-        guard let nibObjects = Bundle.main.loadNibNamed("NativeAdView", owner: nil, options: nil),
-          let adView = nibObjects.first as? GADUnifiedNativeAdView else {
-            assert(false, "Could not load nib file for adView")
-        }
-        setAdView(adView)
+//        guard let nibObjects = Bundle.main.loadNibNamed("NativeAdView", owner: nil, options: nil),
+//          let adView = nibObjects.first as? GADUnifiedNativeAdView else {
+//            assert(false, "Could not load nib file for adView")
+//        }
+//        setAdView(adView)
         
         
         
@@ -106,6 +111,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
         
+        itemsCollectionView.register(UINib(nibName: "NativeAdViewCell", bundle: nil), forCellWithReuseIdentifier: "NativeAdViewCell")
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -119,6 +125,8 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         definesPresentationContext = true
 
        
+        
+        
         
         FirebaseManager.sharedInstance.getItems() { (items) in
             
@@ -138,7 +146,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     func setAdView(_ view: GADUnifiedNativeAdView) {
       // Remove the previous ad view.
       nativeAdView = view
-      nativeAdPlaceholder.addSubview(nativeAdView)
+//      nativeAdPlaceholder.addSubview(nativeAdView)
       nativeAdView.translatesAutoresizingMaskIntoConstraints = false
 
       // Layout constraints for positioning the native ad view to stretch the entire width and height
@@ -151,15 +159,6 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     
-//    func adLoader(_ adLoader: GADAdLoader,
-//                  didReceive nativeAd: GADUnifiedNativeAd) {
-//      print("PJ  A unified native ad has loaded, and can be displayed.")
-//        nativeAds.append(nativeAd)
-//    }
-//
-//    func adLoaderDidFinishLoading(_ adLoader: GADAdLoader) {
-//        print("PJ  The adLoader has finished loading ads, and a new request can be sent.")
-//    }
 
 
    
@@ -170,9 +169,9 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
                                     category: Item.Category? = nil) {
         
         
-      filteredItemList = itemList.filter { (item: Item) -> Bool in
-        return item.category.lowercased().contains(searchText.lowercased())
-      }
+      filteredItemList = itemList.filter { (item: Any) -> Bool in
+        return (item as! Item).category.lowercased().contains(searchText.lowercased())
+        } as! [Item]
 //        print("PJ w filtercontentforserachtext, cat = \(searchText), filtered.count = \(filteredItemList.count)")
       itemsCollectionView.reloadData()
     }
@@ -212,27 +211,56 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
             return cell
             
         } else {
-            
-            
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICustomCollectionViewCell", for: indexPath) as! UICustomCollectionViewCell
-            
-            let item: Item
-            if (isFiltering || isCategorySelected) {
-              item = filteredItemList[indexPath.row]
-//                print("PJ is filtr lub is catsel")
+           
+            if let cellItem = itemList[indexPath.row] as? Item {
+            print("PJ cellForItemAt dla Item: \(indexPath.row)")
+                
+                
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICustomCollectionViewCell", for: indexPath) as! UICustomCollectionViewCell
+                let item: Item
+                if (isFiltering || isCategorySelected) {
+                  item = filteredItemList[indexPath.row]
+                } else {
+                    item = itemList[indexPath.row] as! Item
+
+                }
+                cell.price.text = "\(item.itemPrice) €"  // dataSet[indexPath.row].price
+                cell.title.text = item.itemName
+                cell.image.sd_setImage(with: URL(string: item.itemImages[0]), placeholderImage: UIImage(named: "placeholder.png"))
+                return cell //?? UICollectionViewCell()
+
+                
             } else {
-              item = itemList[indexPath.row]
-//                print("PJ NOT is filtr lub is catsel")
+                print("PJ cellForItemAt dla AdView: \(indexPath.row)")
+                
+              let nativeAd = itemList[indexPath.row] as! GADUnifiedNativeAd
+              /// Set the native ad's rootViewController to the current view controller.
+              nativeAd.rootViewController = self
+
+                let nativeAdCell = collectionView.dequeueReusableCell(withReuseIdentifier: "NativeAdViewCell", for: indexPath) as! NativeAdViewCell
+
+              // Get the ad view from the Cell. The view hierarchy for this cell is defined in
+              // UnifiedNativeAdCell.xib.
+                let adView : GADUnifiedNativeAdView = nativeAdCell.contentView.subviews.first as! GADUnifiedNativeAdView
+
+              // Associate the ad view with the ad object.
+              // This is required to make the ad clickable.
+              adView.nativeAd = nativeAd
+
+              // Populate the ad view with the ad assets.
+                (adView.mediaView!).mediaContent = nativeAd.mediaContent
+
+                (adView.iconView as! UIImageView).image = nativeAd.icon?.image
+                (adView.callToActionView as! UIButton).setTitle(nativeAd.callToAction, for: .normal)
+              (adView.headlineView as! UILabel).text = nativeAd.headline
+
+              return nativeAdCell
+
             }
             
             
-            cell.price.text = "\(item.itemPrice) €"  // dataSet[indexPath.row].price
-            cell.title.text = item.itemName
-            cell.image.sd_setImage(with: URL(string: item.itemImages[0]), placeholderImage: UIImage(named: "placeholder.png"))
-          
-//            print("PJ indexPath: \(indexPath.row) i price: \(dataSet[indexPath.row].price)")
-            return cell //?? UICollectionViewCell()
+            
+            
             
         }
         
@@ -251,9 +279,16 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
                 //TODO - przejrzec logike searchbaru, gdy jest cos w niego wpisane a ktos wybierze jakas kategorię;
                 //albo na odwort ze kategoria wybrana i potem wyszukuje w danej kategorii
                 
-                filteredItemList = itemList
+                //TODO - zrobic przygotowanie filtered items zeby wykluczyc reklamy z listy itemList
+//                filteredItemList = itemList as! [Item]
+                
+                
                 isCategorySelected = false
+                
+            
+                print("PJ reload itemsCollectionView o rozmiarze: \(itemList.count)")
                 itemsCollectionView.reloadData()
+                
                 
             }
             
@@ -265,7 +300,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
             if (isFiltering || isCategorySelected) {
               item = filteredItemList[indexPath.row]
             } else {
-              item = itemList[indexPath.row]
+                item = itemList[indexPath.row] as! Item
             }
        
 
@@ -373,9 +408,20 @@ extension MainViewController : GADUnifiedNativeAdLoaderDelegate {
 
   func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADUnifiedNativeAd) {
 //    refreshAdButton.isEnabled = true
-    nativeAdView.nativeAd = nativeAd
+    
+//    nativeAdView.nativeAd = nativeAd
+//    (nativeAdView.headlineView as? UILabel)?.text = nativeAd.headline
+//      nativeAdView.mediaView?.mediaContent = nativeAd.mediaContent
 
-    print("PJ odebrany nativeAD")
+    itemList.insert(nativeAd, at: itemList.count - 1)
+    let indexPath = IndexPath(row: itemList.count - 1, section: 0)
+//    print("PJ indexpath przed insertitem at: \(indexPath) i item: \(indexPath.item)")
+    itemsCollectionView.insertItems(at: [indexPath])
+    
+    
+    
+    
+    print("PJ odebrany nativeAD, itemlistCount = \(itemList.count)")
     // Set ourselves as the native ad delegate to be notified of native ad events.
     nativeAd.delegate = self
 
@@ -384,9 +430,10 @@ extension MainViewController : GADUnifiedNativeAdLoaderDelegate {
 
     // Populate the native ad view with the native ad assets.
     // The headline and mediaContent are guaranteed to be present in every native ad.
-    (nativeAdView.headlineView as? UILabel)?.text = nativeAd.headline
-    nativeAdView.mediaView?.mediaContent = nativeAd.mediaContent
-
+    
+    print("PJ content reklaamy: headline=\(nativeAd.headline), body: \(nativeAd.body), price: \(nativeAd.price), CTA: \(nativeAd.callToAction), store: \(nativeAd.store), advertiser: \(nativeAd.advertiser), rating: \(nativeAd.starRating)")
+    
+   
     // Some native ads will include a video asset, while others do not. Apps can use the
     // GADVideoController's hasVideoContent property to determine if one is present, and adjust their
     // UI accordingly.
@@ -395,50 +442,45 @@ extension MainViewController : GADUnifiedNativeAdLoaderDelegate {
       // By acting as the delegate to the GADVideoController, this ViewController receives messages
       // about events in the video lifecycle.
       mediaContent.videoController.delegate = self
-//      videoStatusLabel.text = "Ad contains a video asset."
+      print("PJ Ad contains a video asset.")
     }
     else {
-//      videoStatusLabel.text = "Ad does not contain a video."
+      print("PJ Ad does not contain a video.")
     }
+    
+
+    print("PJ aspect ratio: \(nativeAd.mediaContent.aspectRatio)")
 
     // This app uses a fixed width for the GADMediaView and changes its height to match the aspect
     // ratio of the media it displays.
-    if let mediaView = nativeAdView.mediaView, nativeAd.mediaContent.aspectRatio > 0 {
-      heightConstraint = NSLayoutConstraint(item: mediaView,
-                                            attribute: .height,
-                                            relatedBy: .equal,
-                                            toItem: mediaView,
-                                            attribute: .width,
-                                            multiplier: CGFloat(1 / nativeAd.mediaContent.aspectRatio),
-                                            constant: 0)
-      heightConstraint?.isActive = true
-    }
+    
+    //TODO - to moze sie przydac
+//    if let mediaView = nativeAdView.mediaView, nativeAd.mediaContent.aspectRatio > 0 {
+//      heightConstraint = NSLayoutConstraint(item: mediaView,
+//                                            attribute: .height,
+//                                            relatedBy: .equal,
+//                                            toItem: mediaView,
+//                                            attribute: .width,
+//                                            multiplier: CGFloat(1 / nativeAd.mediaContent.aspectRatio),
+//                                            constant: 0)
+//      heightConstraint?.isActive = true
+//    }
 
-    // These assets are not guaranteed to be present. Check that they are before
-    // showing or hiding them.
-    (nativeAdView.bodyView as? UILabel)?.text = nativeAd.body
-    nativeAdView.bodyView?.isHidden = nativeAd.body == nil
 
-    (nativeAdView.callToActionView as? UIButton)?.setTitle(nativeAd.callToAction, for: .normal)
-    nativeAdView.callToActionView?.isHidden = nativeAd.callToAction == nil
-
-    (nativeAdView.iconView as? UIImageView)?.image = nativeAd.icon?.image
-    nativeAdView.iconView?.isHidden = nativeAd.icon == nil
-
-//    (nativeAdView.starRatingView as? UIImageView)?.image = imageOfStars(from:nativeAd.starRating)
-//    nativeAdView.starRatingView?.isHidden = nativeAd.starRating == nil
-
-    (nativeAdView.storeView as? UILabel)?.text = nativeAd.store
-    nativeAdView.storeView?.isHidden = nativeAd.store == nil
-
-    (nativeAdView.priceView as? UILabel)?.text = nativeAd.price
-    nativeAdView.priceView?.isHidden = nativeAd.price == nil
-
-    (nativeAdView.advertiserView as? UILabel)?.text = nativeAd.advertiser
-    nativeAdView.advertiserView?.isHidden = nativeAd.advertiser == nil
-
-    // In order for the SDK to process touch events properly, user interaction should be disabled.
-    nativeAdView.callToActionView?.isUserInteractionEnabled = false
+//    (nativeAdView.callToActionView as? UIButton)?.setTitle(nativeAd.callToAction, for: .normal)
+//    nativeAdView.callToActionView?.isHidden = nativeAd.callToAction == nil
+//
+//    (nativeAdView.iconView as? UIImageView)?.image = nativeAd.icon?.image
+//    nativeAdView.iconView?.isHidden = nativeAd.icon == nil
+//
+//    (nativeAdView.headlineView as? UILabel)?.text = nativeAd.headline
+//    nativeAdView.headlineView?.isHidden = nativeAd.headline == nil
+//
+//
+//    nativeAdView.callToActionView?.isUserInteractionEnabled = false
+    
+    itemsCollectionView.reloadData()
+    
   }
 }
 

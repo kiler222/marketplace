@@ -47,8 +47,9 @@ class CustomLayout: UICollectionViewLayout {
     
     override func prepare() {
       // 1
+        cache = []
       guard
-        cache.isEmpty,
+//        cache.isEmpty,
         let collectionView = collectionView
         else {
           return
@@ -81,6 +82,7 @@ class CustomLayout: UICollectionViewLayout {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = insetFrame
         cache.append(attributes)
+        print("PJ w cache frame: \(attributes.frame) i index: \(attributes.indexPath) i item: \(attributes.indexPath.item)")
           
         // 6
         contentHeight = max(contentHeight, frame.maxY)

@@ -69,16 +69,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RDa-Qm-07g">
-                                <rect key="frame" x="97.5" y="44" width="180" height="300"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="HXw-w5-rD3"/>
-                                    <constraint firstAttribute="height" constant="300" id="jos-B5-SqA"/>
-                                </constraints>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="n8p-E0-cKs" userLabel="Category View">
-                                <rect key="frame" x="0.0" y="344" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="50"/>
                                 <color key="backgroundColor" white="0.95081774100000005" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="rLF-aB-V5F"/>
@@ -134,7 +126,7 @@
                                 </connections>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="j4z-Lw-y0c" userLabel="Items View">
-                                <rect key="frame" x="0.0" y="402" width="375" height="265"/>
+                                <rect key="frame" x="0.0" y="102" width="375" height="565"/>
                                 <color key="backgroundColor" white="0.95081774100000005" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewLayout key="collectionViewLayout" id="Yw1-SE-jtg" customClass="CustomLayout" customModule="yogismarket" customModuleProvider="target"/>
                                 <cells>
@@ -200,12 +192,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.95081774100000005" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="n8p-E0-cKs" firstAttribute="top" secondItem="RDa-Qm-07g" secondAttribute="bottom" id="LrQ-gg-be8"/>
+                            <constraint firstItem="n8p-E0-cKs" firstAttribute="top" secondItem="e9W-Zz-o6j" secondAttribute="top" id="OH7-rb-BYd"/>
                             <constraint firstItem="j4z-Lw-y0c" firstAttribute="top" secondItem="n8p-E0-cKs" secondAttribute="bottom" constant="8" symbolic="YES" id="Ucc-hH-nWQ"/>
                             <constraint firstItem="n8p-E0-cKs" firstAttribute="leading" secondItem="e9W-Zz-o6j" secondAttribute="leading" id="Z8Q-tT-j5q"/>
-                            <constraint firstItem="RDa-Qm-07g" firstAttribute="top" secondItem="au9-n2-0Rb" secondAttribute="topMargin" id="Za8-pK-XMi"/>
                             <constraint firstItem="e9W-Zz-o6j" firstAttribute="bottom" secondItem="j4z-Lw-y0c" secondAttribute="bottom" id="c6J-c0-3BI"/>
-                            <constraint firstItem="RDa-Qm-07g" firstAttribute="centerX" secondItem="au9-n2-0Rb" secondAttribute="centerX" id="nZk-fu-hfH"/>
                             <constraint firstItem="e9W-Zz-o6j" firstAttribute="trailing" secondItem="j4z-Lw-y0c" secondAttribute="trailing" id="qze-3f-bxx"/>
                             <constraint firstItem="e9W-Zz-o6j" firstAttribute="trailing" secondItem="n8p-E0-cKs" secondAttribute="trailing" id="rqF-1V-cRU"/>
                             <constraint firstItem="j4z-Lw-y0c" firstAttribute="leading" secondItem="e9W-Zz-o6j" secondAttribute="leading" id="zY9-zx-zaD"/>
@@ -216,7 +206,6 @@
                     <connections>
                         <outlet property="categoryCollectionView" destination="n8p-E0-cKs" id="MvN-LQ-DJb"/>
                         <outlet property="itemsCollectionView" destination="j4z-Lw-y0c" id="Hth-rO-17u"/>
-                        <outlet property="nativeAdPlaceholder" destination="RDa-Qm-07g" id="TLY-vx-1j2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KFh-kb-Xq1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

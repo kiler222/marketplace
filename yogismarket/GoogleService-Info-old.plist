@@ -32,7 +32,5 @@
 	<string>1:1090290121721:ios:de7fbbffeae42501175b28</string>
 	<key>DATABASE_URL</key>
 	<string>https://yogis-market.firebaseio.com</string>
-	<key>ADMOB_APP_ID</key>
-	<string>ca-app-pub-8857410705016797~8435113705</string>
 </dict>
 </plist>

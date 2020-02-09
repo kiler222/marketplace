@@ -9,31 +9,35 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GADUnifiedNativeAdView">
-            <rect key="frame" x="0.0" y="0.0" width="180" height="300"/>
+            <rect key="frame" x="0.0" y="0.0" width="160" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uba-SY-cFe">
-                    <rect key="frame" x="4" y="249.5" width="15" height="15"/>
+                    <rect key="frame" x="8" y="265" width="25" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="15" id="O26-Uf-g5b"/>
-                        <constraint firstAttribute="height" constant="15" id="xhq-10-6vH"/>
+                        <constraint firstAttribute="width" constant="25" id="O26-Uf-g5b"/>
+                        <constraint firstAttribute="height" constant="25" id="xhq-10-6vH"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6S-cH-kOc">
-                    <rect key="frame" x="67" y="272" width="46" height="20"/>
+                    <rect key="frame" x="59.5" y="298" width="41" height="16"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="20" id="HIr-7a-r8S"/>
+                        <constraint firstAttribute="height" constant="16" id="HIr-7a-r8S"/>
                     </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <state key="normal" title="Button"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDD-be-aBZ">
-                    <rect key="frame" x="27" y="249.5" width="149" height="14.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <nil key="textColor"/>
+                    <rect key="frame" x="41" y="265" width="111" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="2aT-M6-ps3"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="9"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n3y-RL-TR2" customClass="GADMediaView">
-                    <rect key="frame" x="0.0" y="0.0" width="180" height="241.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="160" height="249"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-eV-wbo">
@@ -50,18 +54,18 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="PDD-be-aBZ" firstAttribute="top" secondItem="n3y-RL-TR2" secondAttribute="bottom" constant="8" id="B5g-lQ-8wT"/>
-                <constraint firstItem="uba-SY-cFe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="BNe-U6-gTH"/>
+                <constraint firstItem="PDD-be-aBZ" firstAttribute="top" secondItem="n3y-RL-TR2" secondAttribute="bottom" constant="16" id="B5g-lQ-8wT"/>
+                <constraint firstItem="uba-SY-cFe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="BNe-U6-gTH"/>
                 <constraint firstItem="Y6S-cH-kOc" firstAttribute="top" secondItem="PDD-be-aBZ" secondAttribute="bottom" constant="8" id="Dw8-BE-FCm"/>
                 <constraint firstItem="uba-SY-cFe" firstAttribute="centerY" secondItem="PDD-be-aBZ" secondAttribute="centerY" id="M4i-ey-kGf"/>
                 <constraint firstItem="n3y-RL-TR2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="QU1-GS-oOX"/>
                 <constraint firstItem="DDc-eV-wbo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RUN-dz-b24"/>
                 <constraint firstItem="PDD-be-aBZ" firstAttribute="leading" secondItem="uba-SY-cFe" secondAttribute="trailing" constant="8" id="VVD-ut-DqL"/>
-                <constraint firstAttribute="trailing" secondItem="PDD-be-aBZ" secondAttribute="trailing" constant="4" id="YeO-ui-gco"/>
+                <constraint firstAttribute="trailing" secondItem="PDD-be-aBZ" secondAttribute="trailing" constant="8" id="YeO-ui-gco"/>
                 <constraint firstItem="n3y-RL-TR2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="e8B-A6-Fxu"/>
                 <constraint firstItem="DDc-eV-wbo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hnM-Gl-iyx"/>
                 <constraint firstItem="Y6S-cH-kOc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kWi-d9-ard"/>
-                <constraint firstAttribute="bottom" secondItem="Y6S-cH-kOc" secondAttribute="bottom" constant="8" id="w7e-K1-fGN"/>
+                <constraint firstAttribute="bottom" secondItem="Y6S-cH-kOc" secondAttribute="bottom" constant="6" id="w7e-K1-fGN"/>
                 <constraint firstAttribute="trailing" secondItem="n3y-RL-TR2" secondAttribute="trailing" id="xef-XR-wEh"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

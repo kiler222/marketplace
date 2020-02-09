@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		D113F19055B37807D8AA6AC6 /* Pods_yogismarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E411721882A8FC1F104E3E /* Pods_yogismarket.framework */; };
 		E55EBC5E23EC15F000699BCE /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC5D23EC15F000699BCE /* ItemDetailsViewController.swift */; };
-		E55EBC6023EC40AF00699BCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E55EBC5F23EC40AF00699BCE /* GoogleService-Info.plist */; };
+		E55EBC6023EC40AF00699BCE /* GoogleService-Info-old.plist in Resources */ = {isa = PBXBuildFile; fileRef = E55EBC5F23EC40AF00699BCE /* GoogleService-Info-old.plist */; };
 		E55EBC6223EC535E00699BCE /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC6123EC535E00699BCE /* FirebaseManager.swift */; };
 		E55EBC6423ECB6E300699BCE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC6323ECB6E200699BCE /* Models.swift */; };
 		E55EBC6623EDB8EC00699BCE /* ShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC6523EDB8EA00699BCE /* ShowImageViewController.swift */; };
@@ -20,13 +20,14 @@
 		E55EBC7523EF0F0400699BCE /* GADTTemplateView.m in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC6F23EF0F0400699BCE /* GADTTemplateView.m */; };
 		E55EBC7623EF0F0400699BCE /* GADTMediumTemplateView.m in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC7023EF0F0400699BCE /* GADTMediumTemplateView.m */; };
 		E55EBC7823EF6C5A00699BCE /* NativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55EBC7723EF6C5900699BCE /* NativeAdView.xib */; };
+		E55EBC7A23F05B2800699BCE /* NativeAdViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55EBC7923F05B2700699BCE /* NativeAdViewCell.xib */; };
+		E55EBC7C23F05D2100699BCE /* NativeAdViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EBC7B23F05D2100699BCE /* NativeAdViewCell.swift */; };
+		E55EBC7E23F0C9E800699BCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E55EBC7D23F0C9E700699BCE /* GoogleService-Info.plist */; };
 		E5AA9EF423E03DCB00531322 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF323E03DCB00531322 /* AppDelegate.swift */; };
 		E5AA9EF623E03DCB00531322 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF523E03DCB00531322 /* SceneDelegate.swift */; };
-		E5AA9EF823E03DCB00531322 /* ViewXXController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9EF723E03DCB00531322 /* ViewXXController.swift */; };
 		E5AA9EFB23E03DCB00531322 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5AA9EF923E03DCB00531322 /* Main.storyboard */; };
 		E5AA9EFD23E03DCF00531322 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5AA9EFC23E03DCF00531322 /* Assets.xcassets */; };
 		E5AA9F0023E03DCF00531322 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5AA9EFE23E03DCF00531322 /* LaunchScreen.storyboard */; };
-		E5AA9F0823E03E7900531322 /* UICustomCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9F0723E03E7900531322 /* UICustomCollectionViewLayout.swift */; };
 		E5AA9F0A23E0402F00531322 /* UICustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9F0923E0402F00531322 /* UICustomCollectionViewCell.swift */; };
 		E5AA9F0C23E0853100531322 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9F0B23E0853100531322 /* MainViewController.swift */; };
 		E5AA9F1423E1AEC300531322 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA9F1323E1AEC300531322 /* CategoryCollectionViewCell.swift */; };
@@ -37,7 +38,7 @@
 		361ADF5012001BED132357D6 /* Pods-yogismarket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yogismarket.debug.xcconfig"; path = "Target Support Files/Pods-yogismarket/Pods-yogismarket.debug.xcconfig"; sourceTree = "<group>"; };
 		D58A30E09DCB2CB90C77389D /* Pods-yogismarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yogismarket.release.xcconfig"; path = "Target Support Files/Pods-yogismarket/Pods-yogismarket.release.xcconfig"; sourceTree = "<group>"; };
 		E55EBC5D23EC15F000699BCE /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
-		E55EBC5F23EC40AF00699BCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E55EBC5F23EC40AF00699BCE /* GoogleService-Info-old.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-old.plist"; sourceTree = "<group>"; };
 		E55EBC6123EC535E00699BCE /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		E55EBC6323ECB6E200699BCE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E55EBC6523EDB8EA00699BCE /* ShowImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageViewController.swift; sourceTree = "<group>"; };
@@ -51,15 +52,16 @@
 		E55EBC7023EF0F0400699BCE /* GADTMediumTemplateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GADTMediumTemplateView.m; sourceTree = "<group>"; };
 		E55EBC7123EF0F0400699BCE /* GADTSmallTemplateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADTSmallTemplateView.h; sourceTree = "<group>"; };
 		E55EBC7723EF6C5900699BCE /* NativeAdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NativeAdView.xib; sourceTree = "<group>"; };
+		E55EBC7923F05B2700699BCE /* NativeAdViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NativeAdViewCell.xib; sourceTree = "<group>"; };
+		E55EBC7B23F05D2100699BCE /* NativeAdViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewCell.swift; sourceTree = "<group>"; };
+		E55EBC7D23F0C9E700699BCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E5AA9EF023E03DCB00531322 /* yogismarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yogismarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5AA9EF323E03DCB00531322 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5AA9EF523E03DCB00531322 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E5AA9EF723E03DCB00531322 /* ViewXXController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewXXController.swift; sourceTree = "<group>"; };
 		E5AA9EFA23E03DCB00531322 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E5AA9EFC23E03DCF00531322 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5AA9EFF23E03DCF00531322 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5AA9F0123E03DCF00531322 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E5AA9F0723E03E7900531322 /* UICustomCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomCollectionViewLayout.swift; sourceTree = "<group>"; };
 		E5AA9F0923E0402F00531322 /* UICustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5AA9F0B23E0853100531322 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E5AA9F1323E1AEC300531322 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -130,21 +132,22 @@
 		E5AA9EF223E03DCB00531322 /* yogismarket */ = {
 			isa = PBXGroup;
 			children = (
+				E55EBC7D23F0C9E700699BCE /* GoogleService-Info.plist */,
 				E55EBC6923EF0F0400699BCE /* nativetemplates */,
-				E55EBC5F23EC40AF00699BCE /* GoogleService-Info.plist */,
+				E55EBC5F23EC40AF00699BCE /* GoogleService-Info-old.plist */,
 				E5AA9EF323E03DCB00531322 /* AppDelegate.swift */,
 				E5AA9F0923E0402F00531322 /* UICustomCollectionViewCell.swift */,
 				E5AA9F1323E1AEC300531322 /* CategoryCollectionViewCell.swift */,
 				E5AA9EF523E03DCB00531322 /* SceneDelegate.swift */,
-				E5AA9EF723E03DCB00531322 /* ViewXXController.swift */,
 				E5AA9F0B23E0853100531322 /* MainViewController.swift */,
+				E55EBC7B23F05D2100699BCE /* NativeAdViewCell.swift */,
 				E55EBC7723EF6C5900699BCE /* NativeAdView.xib */,
+				E55EBC7923F05B2700699BCE /* NativeAdViewCell.xib */,
 				E5AA9EF923E03DCB00531322 /* Main.storyboard */,
 				E55EBC6723EEC03D00699BCE /* CustomLayout.swift */,
 				E5AA9EFC23E03DCF00531322 /* Assets.xcassets */,
 				E5AA9EFE23E03DCF00531322 /* LaunchScreen.storyboard */,
 				E5AA9F0123E03DCF00531322 /* Info.plist */,
-				E5AA9F0723E03E7900531322 /* UICustomCollectionViewLayout.swift */,
 				E55EBC5D23EC15F000699BCE /* ItemDetailsViewController.swift */,
 				E55EBC6523EDB8EA00699BCE /* ShowImageViewController.swift */,
 				E55EBC6123EC535E00699BCE /* FirebaseManager.swift */,
@@ -215,9 +218,11 @@
 			files = (
 				E55EBC7423EF0F0400699BCE /* GADTSmallTemplateView.xib in Resources */,
 				E5AA9F0023E03DCF00531322 /* LaunchScreen.storyboard in Resources */,
+				E55EBC7E23F0C9E800699BCE /* GoogleService-Info.plist in Resources */,
 				E5AA9EFD23E03DCF00531322 /* Assets.xcassets in Resources */,
 				E5AA9EFB23E03DCB00531322 /* Main.storyboard in Resources */,
-				E55EBC6023EC40AF00699BCE /* GoogleService-Info.plist in Resources */,
+				E55EBC7A23F05B2800699BCE /* NativeAdViewCell.xib in Resources */,
+				E55EBC6023EC40AF00699BCE /* GoogleService-Info-old.plist in Resources */,
 				E55EBC7823EF6C5A00699BCE /* NativeAdView.xib in Resources */,
 				E55EBC7223EF0F0400699BCE /* GADTMediumTemplateView.xib in Resources */,
 			);
@@ -272,11 +277,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5AA9EF823E03DCB00531322 /* ViewXXController.swift in Sources */,
 				E5AA9F0A23E0402F00531322 /* UICustomCollectionViewCell.swift in Sources */,
 				E5AA9EF423E03DCB00531322 /* AppDelegate.swift in Sources */,
 				E55EBC6223EC535E00699BCE /* FirebaseManager.swift in Sources */,
 				E55EBC6623EDB8EC00699BCE /* ShowImageViewController.swift in Sources */,
+				E55EBC7C23F05D2100699BCE /* NativeAdViewCell.swift in Sources */,
 				E5AA9F0C23E0853100531322 /* MainViewController.swift in Sources */,
 				E55EBC7523EF0F0400699BCE /* GADTTemplateView.m in Sources */,
 				E55EBC6823EEC03E00699BCE /* CustomLayout.swift in Sources */,
@@ -285,7 +290,6 @@
 				E5AA9F1423E1AEC300531322 /* CategoryCollectionViewCell.swift in Sources */,
 				E55EBC7323EF0F0400699BCE /* GADTSmallTemplateView.m in Sources */,
 				E55EBC5E23EC15F000699BCE /* ItemDetailsViewController.swift in Sources */,
-				E5AA9F0823E03E7900531322 /* UICustomCollectionViewLayout.swift in Sources */,
 				E55EBC6423ECB6E300699BCE /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
