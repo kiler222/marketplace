@@ -213,7 +213,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         } else {
            
             if let cellItem = itemList[indexPath.row] as? Item {
-            print("PJ cellForItemAt dla Item: \(indexPath.row)")
+//            print("PJ cellForItemAt dla Item: \(indexPath.row)")
                 
                 
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICustomCollectionViewCell", for: indexPath) as! UICustomCollectionViewCell
@@ -226,12 +226,12 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
                 }
                 cell.price.text = "\(item.itemPrice) €"  // dataSet[indexPath.row].price
                 cell.title.text = item.itemName
-                cell.image.sd_setImage(with: URL(string: item.itemImages[0]), placeholderImage: UIImage(named: "placeholder.png"))
+                cell.image.sd_setImage(with: URL(string: item.itemImages[0]),
+                                       placeholderImage: UIImage(named: "placeholder.png"))
                 return cell //?? UICollectionViewCell()
 
-                
             } else {
-                print("PJ cellForItemAt dla AdView: \(indexPath.row)")
+//                print("PJ cellForItemAt dla AdView: \(indexPath.row)")
                 
               let nativeAd = itemList[indexPath.row] as! GADUnifiedNativeAd
               /// Set the native ad's rootViewController to the current view controller.
@@ -431,7 +431,7 @@ extension MainViewController : GADUnifiedNativeAdLoaderDelegate {
     // Populate the native ad view with the native ad assets.
     // The headline and mediaContent are guaranteed to be present in every native ad.
     
-    print("PJ content reklaamy: headline=\(nativeAd.headline), body: \(nativeAd.body), price: \(nativeAd.price), CTA: \(nativeAd.callToAction), store: \(nativeAd.store), advertiser: \(nativeAd.advertiser), rating: \(nativeAd.starRating)")
+//    print("PJ content reklaamy: headline=\(nativeAd.headline), body: \(nativeAd.body), price: \(nativeAd.price), CTA: \(nativeAd.callToAction), store: \(nativeAd.store), advertiser: \(nativeAd.advertiser), rating: \(nativeAd.starRating)")
     
    
     // Some native ads will include a video asset, while others do not. Apps can use the

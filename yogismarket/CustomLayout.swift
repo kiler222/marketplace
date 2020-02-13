@@ -82,7 +82,7 @@ class CustomLayout: UICollectionViewLayout {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = insetFrame
         cache.append(attributes)
-        print("PJ w cache frame: \(attributes.frame) i index: \(attributes.indexPath) i item: \(attributes.indexPath.item)")
+//        print("PJ w cache frame: \(attributes.frame) i index: \(attributes.indexPath) i item: \(attributes.indexPath.item)")
           
         // 6
         contentHeight = max(contentHeight, frame.maxY)
